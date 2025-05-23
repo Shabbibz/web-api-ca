@@ -1,6 +1,6 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-import { getMovies,getUpcomingMovies, getPopularMovies, getTopRatedMovies, getNowPlayingMovies, getMovie } from '../tmdb-api'; 
+import { getMovies,getUpcomingMovies, getPopularMovies, getTopRatedMovies, getNowPlayingMovies, getMovie, getRecommendations } from '../tmdb-api'; 
 
 const router = express.Router();
 
@@ -25,10 +25,15 @@ router.get('/nowplaying', asyncHandler(async (req, res) => {
     const nowPlayingMovies = await getNowPlayingMovies();
     res.status(200).json(nowPlayingMovies);
 }));
-router.get('/:id', asyncHandler(async (req, res) => {
+router.get('/movie/:id', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const movie = await getMovie(id);
     res.status(200).json(movie);
+}));
+router.get('/recommendations/:id', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const recommendations = await getRecommendations(id);
+    res.status(200).json(recommendations);
 }));
 
 export default router;

@@ -84,7 +84,7 @@ export const getMovie = async (args) => {
   const [, idPart] = args.queryKey;
   const { id } = idPart;
 
-  const response = await fetch(`http://localhost:8080/api/movies/${id}`);
+  const response = await fetch(`http://localhost:8080/api/movies/movie/${id}`);
 
   if (!response.ok) {
     const error = await response.json();
@@ -95,14 +95,17 @@ export const getMovie = async (args) => {
 };
 
 //New const for getting recommendations added 
-export const getRecommendations = async (id) => {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-  );
+export const getRecommendations = async (args) => {
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  const response = await fetch(`http://localhost:8080/api/recommendations/${id}`);
+
   if (!response.ok) {
-    throw new Error('Failed to fetch recommendations');
+    const error = await response.json();
+    throw new Error(error.status_message || "Something went wrong");
   }
-  return response.json();
+ 
+  return await response.json();
 };
 //New const for getting credits added 
 export const getCredits = async (id) => {
