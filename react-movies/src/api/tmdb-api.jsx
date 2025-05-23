@@ -86,16 +86,12 @@ export const getMovie = async (args) => {
 
   const response = await fetch(`http://localhost:8080/api/movies/${id}`);
 
-    if (!response.ok) {
-      return response.json().then((error) => {
-        throw new Error(error.status_message || "Something went wrong");
-      });
-    }
-    return response.json();
-  })
-  .catch((error) => {
-    throw error
- });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.status_message || "Something went wrong");
+  }
+ 
+  return await response.json();
 };
 
 //New const for getting recommendations added 
