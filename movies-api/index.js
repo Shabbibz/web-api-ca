@@ -3,6 +3,7 @@ import express from 'express';
 import './db';
 import cors from 'cors';
 import usersRouter from './api/users';
+import moviesRouter from './api/movies';   
 // import authenticate from './authenticate';
 
 
@@ -30,8 +31,12 @@ app.use(cors());
 //Users router
 app.use('/api/users', usersRouter);
 
+app.use('/api/movies', moviesRouter); 
+
 app.use(errHandler);
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
+
+
