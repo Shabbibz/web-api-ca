@@ -1,6 +1,6 @@
 export const getMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `http://localhost:8080/api/movies/discover`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -16,7 +16,7 @@ export const getMovies = () => {
 
 export const getNowPlayingMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `http://localhost:8080/api/movies/nowplaying`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -33,7 +33,7 @@ export const getNowPlayingMovies = () => {
 //this is my new pages export, its fetching the 'popular' movies list from the api and displaying onto the new page
 export const getPopularMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `http://localhost:8080/api/movies/popular`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -49,7 +49,7 @@ export const getPopularMovies = () => {
 
 export const getTopRatedMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `http://localhost:8080/api/movies/toprated`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -65,7 +65,7 @@ export const getTopRatedMovies = () => {
 
 export const getUpcomingMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `http://localhost:8080/api/movies/upcoming`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -78,16 +78,14 @@ export const getUpcomingMovies = () => {
       throw error
   });
 };
-
-
   
-export const getMovie = (args) => {
+export const getMovie = async (args) => {
   //console.log(args)
   const [, idPart] = args.queryKey;
   const { id } = idPart;
-  return fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
-  ).then((response) => {
+
+  const response = await fetch(`http://localhost:8080/api/movies/${id}`);
+
     if (!response.ok) {
       return response.json().then((error) => {
         throw new Error(error.status_message || "Something went wrong");
@@ -138,8 +136,6 @@ export const getGenres = () => {
     throw error
  });
 };
-
-
   
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
@@ -158,7 +154,6 @@ export const getMovieImages = ({ queryKey }) => {
     throw error
  });
 };
-
 
 export const getMovieReviews = ({ queryKey }) => {
   const [, idPart] = queryKey;
