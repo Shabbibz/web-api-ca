@@ -110,19 +110,16 @@ export const getRecommendations = async (args) => {
 //New const for getting credits added 
 export const getCredits = async (id) => {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `http://localhost:8080/api/credits/${id}`
   );
   if (!response.ok) {
     throw new Error('Failed to fetch credits');
   }
   return response.json();
 };
-
-export const getGenres = () => {
+export const getGenres = (id) => {
   return fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-      import.meta.env.VITE_TMDB_KEY +
-      "&language=en-US"
+        `http://localhost:8080/api/genres/${id}`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -139,8 +136,7 @@ export const getGenres = () => {
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
-  return fetch(
-    `https://api.themoviedb.org/3/movie/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  return fetch( `http://localhost:8080/api/movieimages/${id}`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -158,7 +154,7 @@ export const getMovieReviews = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    `http://localhost:8080/api/moviereviews/${id}`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
