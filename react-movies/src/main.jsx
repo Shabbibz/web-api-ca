@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router";
 import HomePage from "./pages/homePage";
@@ -17,7 +17,6 @@ import TopRatedMovies from "./pages/topRated";
 import NowPlayingMovies from "./pages/nowPlaying";
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
-import StartPage from "./pages/startPage";
 
 
 const queryClient = new QueryClient({
@@ -58,8 +57,6 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
-
 
 const rootElement = createRoot( document.getElementById("root") )
 rootElement.render(<App />);
