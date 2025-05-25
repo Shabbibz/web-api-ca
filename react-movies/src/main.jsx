@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router";
 import HomePage from "./pages/homePage";
@@ -17,7 +17,8 @@ import TopRatedMovies from "./pages/topRated";
 import NowPlayingMovies from "./pages/nowPlaying";
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
-
+import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +34,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <AuthContextProvider>
         <SiteHeader />
         <MoviesContextProvider>
           <Routes>
@@ -49,9 +51,11 @@ const App = () => {
             <Route path="/movies/nowPlaying" element={<NowPlayingMovies />} />
             <Route path="/login" element={< LoginPage />} />
             <Route path="/signup" element={< SignupPage />} />
+            {/* <Route element={<ProtectedRoutes />}> */}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

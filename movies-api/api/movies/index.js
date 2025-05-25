@@ -42,7 +42,7 @@ router.get('/credits/:id', asyncHandler(async (req, res) => {
     const credits = await getCredits(id);
     res.status(200).json(credits);
 }));
-router.get('/genres/:id', asyncHandler(async (req, res) => {
+router.get('/genres', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const genres = await getGenres(id);
     res.status(200).json(genres);

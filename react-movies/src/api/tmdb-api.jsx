@@ -98,7 +98,7 @@ export const getMovie = async (args) => {
 export const getRecommendations = async (args) => {
   const [, idPart] = args.queryKey;
   const { id } = idPart;
-  const response = await fetch(`http://localhost:8080/api/recommendations/${id}`);
+  const response = await fetch(`http://localhost:8080/api/movies/recommendations/${id}`);
 
   if (!response.ok) {
     const error = await response.json();
@@ -110,16 +110,16 @@ export const getRecommendations = async (args) => {
 //New const for getting credits added 
 export const getCredits = async (id) => {
   const response = await fetch(
-    `http://localhost:8080/api/credits/${id}`
+    `http://localhost:8080/api/movies/credits/${id}`
   );
   if (!response.ok) {
     throw new Error('Failed to fetch credits');
   }
   return response.json();
 };
-export const getGenres = (id) => {
+export const getGenres = () => {
   return fetch(
-        `http://localhost:8080/api/genres/${id}`
+        `http://localhost:8080/api/movies/genres`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -136,7 +136,7 @@ export const getGenres = (id) => {
 export const getMovieImages = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
-  return fetch( `http://localhost:8080/api/movieimages/${id}`
+  return fetch( `http://localhost:8080/api/movies/movieimages/${id}`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -154,7 +154,7 @@ export const getMovieReviews = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetch(
-    `http://localhost:8080/api/moviereviews/${id}`
+    `http://localhost:8080/api/movies/moviereviews/${id}`
   ).then( (response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -167,6 +167,7 @@ export const getMovieReviews = ({ queryKey }) => {
     throw error
  });
 };
+
 
 
 
